@@ -12,7 +12,7 @@ class IconsView extends StatefulWidget {
 }
 
 class _IconsViewState extends State<IconsView> {
-  Color selectedColor = ColorsUtilities.dark_green_blue;
+  Color selectedColor = ColorsUtilities.darkGreenBlue;
   Color unSelectedColor = ColorsUtilities.greyish;
   @override
   Widget build(BuildContext context) {

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_booking_application/product/Utilities/Colors/colors.dart';
 import 'package:flutter_booking_application/product/Utilities/Textstyles/textstyles.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
-import 'package:flutter_booking_application/product/widget/ElevatedButton.dart';
-import 'package:flutter_booking_application/views/GetStarted/Icons/IconsPage.dart';
-import 'package:flutter_booking_application/views/GetStarted/model/GetStarted_model.dart';
-import 'package:flutter_booking_application/views/Login/HomePage.dart';
+import 'package:flutter_booking_application/product/widget/elevated_button.dart';
+import 'package:flutter_booking_application/views/GetStarted/Icons/icons_page.dart';
+import 'package:flutter_booking_application/views/GetStarted/model/get_started_model.dart';
+import 'package:flutter_booking_application/views/Login-Register/Register/Login/login_page.dart';
 
 class GetStartedBuilder extends StatelessWidget {
   const GetStartedBuilder({Key? key, required this.getStarted}) : super(key: key);
@@ -48,10 +48,10 @@ class GetStartedBuilder extends StatelessWidget {
                   padding: Paddings.onlyTopSoBig + Paddings.horizontalLow,
                   child: CustomElevatedButton(
                     onPressed: () {
-                      navigateToUntilRemove(context, const LoginPage());
+                      navigateToUntilRemove(context, const LoginView());
                     },
                     text: 'Get Started',
-                    primary: ColorsUtilities.dark_green_blue,
+                    primary: ColorsUtilities.darkGreenBlue,
                     height: height,
                     style: TextStyles.avenirWhiteMedium,
                   ),

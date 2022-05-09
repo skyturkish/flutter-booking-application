@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'GetStartedPage.dart';
+import 'get_started_page.dart';
 import '../Icons/icons_page_view_model.dart';
-import '../model/GetStarted_model.dart';
+import '../model/get_started_model.dart';
 
 class MainPageView extends StatefulWidget {
   const MainPageView({Key? key, required this.pages}) : super(key: key);
