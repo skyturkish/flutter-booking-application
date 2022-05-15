@@ -37,6 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
 #core
   equatable: ^2.0.3
+
+
+#Animations
+  lottie: ^1.3.0
+
   
 #Google
   json_serializable: ^6.2.0

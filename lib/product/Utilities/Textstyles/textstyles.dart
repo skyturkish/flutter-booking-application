@@ -32,4 +32,17 @@ class TextStyles {
       fontFamily: "Avenir",
       fontStyle: FontStyle.normal,
       fontSize: 14.0);
+  static const avenirGreyish = TextStyle(
+      color: ColorsUtilities.greyish,
+      fontWeight: FontWeight.w500,
+      fontFamily: "Avenir",
+      fontStyle: FontStyle.normal,
+      fontSize: 14.0);
+
+  static const avenirCamel = TextStyle(
+      color: ColorsUtilities.camel,
+      fontWeight: FontWeight.w900,
+      fontFamily: "Avenir",
+      fontStyle: FontStyle.normal,
+      fontSize: 14.0);
 }

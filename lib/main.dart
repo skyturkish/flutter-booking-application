@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_booking_application/views/Login/view/login_page_view.dart';
+import 'package:flutter_booking_application/views/Login/view/login_view.dart';
 import 'package:provider/provider.dart';
 
 import 'views/GetStarted/Icons/icons_page_view_model.dart';

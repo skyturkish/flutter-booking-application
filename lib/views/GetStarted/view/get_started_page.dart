@@ -5,7 +5,7 @@ import 'package:flutter_booking_application/product/navigator/navigator_help.dar
 import 'package:flutter_booking_application/product/widget/elevated_button.dart';
 import 'package:flutter_booking_application/views/GetStarted/Icons/icons_page.dart';
 import 'package:flutter_booking_application/views/GetStarted/model/get_started_model.dart';
-import 'package:flutter_booking_application/views/Login/view/login_page_view.dart';
+import 'package:flutter_booking_application/views/Login/view/login_view.dart';
 
 class GetStartedBuilder extends StatelessWidget {
   const GetStartedBuilder({Key? key, required this.getStarted}) : super(key: key);

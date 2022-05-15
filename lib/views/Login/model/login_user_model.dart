@@ -1,17 +1,17 @@
-class Login {
-  String? name;
+class LoginUser {
+  String? username;
   String? password;
 
-  Login({this.name, this.password});
+  LoginUser({this.username, this.password});
 
-  Login.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
+  LoginUser.fromJson(Map<String, dynamic> json) {
+    username = json['username'];
     password = json['password'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
+    data['username'] = username;
     data['password'] = password;
     return data;
   }

@@ -1,6 +1,4 @@
-// ignore_for_file: file_names
-
-class LoginUser {
+class LoginModel {
   int? id;
   String? username;
   String? email;
@@ -10,9 +8,9 @@ class LoginUser {
   String? image;
   String? token;
 
-  LoginUser({this.id, this.username, this.email, this.firstName, this.lastName, this.gender, this.image, this.token});
+  LoginModel({this.id, this.username, this.email, this.firstName, this.lastName, this.gender, this.image, this.token});
 
-  LoginUser.fromJson(Map<String, dynamic> json) {
+  LoginModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     username = json['username'];
     email = json['email'];
