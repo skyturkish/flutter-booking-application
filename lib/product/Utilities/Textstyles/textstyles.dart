@@ -20,4 +20,16 @@ class TextStyles {
       fontFamily: "Avenir",
       fontStyle: FontStyle.normal,
       fontSize: 16.0);
+  static const avenirCharcoal = TextStyle(
+      color: ColorsUtilities.charcoal,
+      fontWeight: FontWeight.w900,
+      fontFamily: "Avenir",
+      fontStyle: FontStyle.normal,
+      fontSize: 18.0);
+  static const labelText = TextStyle(
+      color: ColorsUtilities.greyish,
+      fontWeight: FontWeight.w900,
+      fontFamily: "Avenir",
+      fontStyle: FontStyle.normal,
+      fontSize: 14.0);
 }

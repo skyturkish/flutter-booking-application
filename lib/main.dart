@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_booking_application/views/Login/view/login_page_view.dart';
 import 'package:provider/provider.dart';
 
 import 'views/GetStarted/Icons/icons_page_view_model.dart';
-import 'views/GetStarted/model/get_started_model.dart';
-import 'views/GetStarted/view/page_view.dart';
 
 void main() => runApp(
       MultiProvider(
@@ -18,9 +18,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Apart App',
-        home: MainPageView(
-          pages: GetStartedList.pages,
-        ));
+      theme: ThemeData.light().copyWith(
+          appBarTheme: AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+                  // statusBarBrightness: Brightness.light, // For iOS (dark icons)
+                  // systemNavigationBarIconBrightness: Brightness.dark,
+                  ))),
+      title: 'Apart App',
+
+      home: const LoginView(),
+      // home: GetStartedView(
+      //   pages: GetStartedList.pages,
+      // ),
+    );
+    // home: MainPageView(
+    //   pages: GetStartedList.pages,
+    // ));
   }
 }

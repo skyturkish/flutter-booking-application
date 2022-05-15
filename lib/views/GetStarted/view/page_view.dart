@@ -5,14 +5,14 @@ import 'get_started_page.dart';
 import '../Icons/icons_page_view_model.dart';
 import '../model/get_started_model.dart';
 
-class MainPageView extends StatefulWidget {
-  const MainPageView({Key? key, required this.pages}) : super(key: key);
+class GetStartedView extends StatefulWidget {
+  const GetStartedView({Key? key, required this.pages}) : super(key: key);
   final List<GetStarted> pages;
   @override
-  State<MainPageView> createState() => _MainPageViewState();
+  State<GetStartedView> createState() => _GetStartedViewState();
 }
 
-class _MainPageViewState extends State<MainPageView> {
+class _GetStartedViewState extends State<GetStartedView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
