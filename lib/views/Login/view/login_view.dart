@@ -41,7 +41,7 @@ class _LoginViewState extends State<LoginView> {
 
           body: BlocBuilder<LoginCubit, LoginState>(
             builder: (context, state) {
-              return state.isLoading
+              return state.isCompleted
                   ? Center(child: Lottie.network('https://assets5.lottiefiles.com/packages/lf20_x62chJ.json'))
                   : Padding(
                       padding: Paddings.allMedium,
@@ -81,10 +81,9 @@ class _LoginViewState extends State<LoginView> {
                                   LoginModel? user = await context.read<LoginCubit>().checkUser(
                                       LoginUser(username: namesController.text, password: passwordController.text));
                                   if (user != null) {
-                                    print("adana");
                                   } else {
                                     ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(content: Text('content')));
+                                        .showSnackBar(const SnackBar(content: Text('name or password is wrong!!!')));
                                   }
                                 },
                                 text: 'Log in',
