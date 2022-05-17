@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_booking_application/product/model/login_model.dart';
 import 'package:flutter_booking_application/views/Login/cubit/login_cubit_state.dart';
 import 'package:flutter_booking_application/views/Login/model/login_user_model.dart';
 import 'package:flutter_booking_application/views/Login/service/login_service.dart';
+import 'package:flutter_booking_application/views/cache/model/login_model.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(ILoginService loginService)

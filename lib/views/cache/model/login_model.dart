@@ -1,11 +1,25 @@
+import 'package:flutter_booking_application/views/cache/constant/hive_constants.dart';
+import 'package:hive_flutter/adapters.dart';
+
+part 'login_model.g.dart';
+
+@HiveType(typeId: HiveConstants.loginModelTypeId)
 class LoginModel {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? username;
+  @HiveField(2)
   String? email;
+  @HiveField(3)
   String? firstName;
+  @HiveField(4)
   String? lastName;
+  @HiveField(5)
   String? gender;
+  @HiveField(6)
   String? image;
+  @HiveField(7)
   String? token;
 
   LoginModel({this.id, this.username, this.email, this.firstName, this.lastName, this.gender, this.image, this.token});

@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_booking_application/product/model/login_model.dart';
 import 'package:flutter_booking_application/views/Login/model/login_user_model.dart';
+import 'package:flutter_booking_application/views/cache/model/login_model.dart';
 
 abstract class ILoginService {
   final Dio networkManager;
