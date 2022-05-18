@@ -1,11 +1,23 @@
 // ignore_for_file: unnecessary_this
 
+import 'package:flutter_booking_application/views/cache/constant/hive_constants.dart';
+import 'package:hive_flutter/adapters.dart';
+
+part 'post_model.g.dart';
+
+@HiveType(typeId: HiveConstants.postModelTypeId)
 class PostModel {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? title;
+  @HiveField(2)
   String? body;
+  @HiveField(3)
   int? userId;
+  @HiveField(4)
   List<String>? tags;
+  @HiveField(5)
   int? reactions;
 
   PostModel({this.id, this.title, this.body, this.userId, this.tags, this.reactions});

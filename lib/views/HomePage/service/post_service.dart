@@ -45,6 +45,7 @@ class PostService extends IPostService {
       Response response = await networkManager.get('/posts');
       if (response.statusCode == HttpStatus.ok) {
         final data = response.data;
+        print('adana');
         return data;
       }
     } on DioError catch (error) {
@@ -64,10 +65,6 @@ class PostService extends IPostService {
     // TODO: implement getPostssComments
     throw UnimplementedError();
   }
-
-  @override
-  // TODO: implement networkManager
-  Dio get networkManager => throw UnimplementedError();
 
   @override
   Future<Map<String, dynamic>?> searchPost(String key) {

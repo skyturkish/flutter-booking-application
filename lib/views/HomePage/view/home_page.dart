@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
+import 'package:flutter_booking_application/views/HomePage/cache/post_cache_manager.dart';
 import 'package:flutter_booking_application/views/HomePage/model/post_model.dart';
 import 'package:flutter_booking_application/views/HomePage/service/post_service.dart';
 import 'package:flutter_booking_application/views/Login/view/login_view.dart';
@@ -8,44 +9,51 @@ import 'package:flutter_booking_application/views/cache/manager/user_cache_manag
 import 'package:flutter_booking_application/views/cache/model/login_model.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.loginModel}) : super(key: key);
-  final LoginModel loginModel;
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  //Strings
+  final String baseUrl = 'https://dummyjson.com';
   //CacheManager
   late final ICacheManager<LoginModel> cacheManagerLogin;
-  //late final ICacheManager<PostModel> cacheManagerPost;
-
+  late final ICacheManager<PostModel> cacheManagerPost;
+  LoginModel? currentUser;
 // Serv'ce manager
-  late final IPostService postServiceManager;
-
+  late final PostService serviceManager;
 //Posts
   List<PostModel>? _posts;
 
   @override
   void initState() {
     cacheManagerLogin = UserCacheManager('User');
-    postServiceManager = PostService(Dio(BaseOptions(baseUrl: 'https://dummyjson.com/posts')), 'bursa');
-    fetchPosts();
-
+    cacheManagerPost = PostCacheManager('Posts');
+    serviceManager = PostService(Dio(BaseOptions(baseUrl: baseUrl)), ' bura neden var olum ben neden bunu ekledim');
+    getUser();
+    getPosts();
     super.initState();
   }
 
-  Future<void> fetchPosts() async {
-    final data = await postServiceManager.getPosts();
+  Future<void> getPosts() async {
+    await cacheManagerPost.init();
+    print('bursa');
+    if (cacheManagerPost.getValues()?.isNotEmpty ?? false) {
+      print(cacheManagerPost.getValues()![0].body);
+      _posts = cacheManagerPost.getValues();
+    } else {
+      print('selamlar1');
 
-    try {
-      if (data is Map) {
-        _posts = ((data as Map)["posts"] as List).map((e) => PostModel.fromJson(e)).toList();
-        setState(() {});
+      final Map<String, dynamic>? datas = await serviceManager.getPosts();
+      if (datas is Map) {
+        print('adanaaaaa');
+        _posts = (datas?["posts"] as List).map((e) => PostModel.fromJson(e)).toList();
+        cacheManagerPost.addItems(_posts!);
       }
-    } catch (e) {
-      print('noluyor aq');
     }
+    setState(() {});
   }
 
   Future<void> clearAll() async {
@@ -53,10 +61,18 @@ class _HomePageState extends State<HomePage> {
     await cacheManagerLogin.clearAll();
   }
 
+  Future<void> getUser() async {
+    await cacheManagerLogin.init();
+    currentUser = cacheManagerLogin.getItem('currentUser')!;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(_posts?[0].body ?? ' adana');
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        setState(() {});
+      }),
       appBar: AppBar(
         actions: [
           IconButton(
@@ -66,8 +82,13 @@ class _HomePageState extends State<HomePage> {
               },
               icon: const Icon(Icons.arrow_back))
         ],
-        title: Text(widget.loginModel.id.toString()),
+        title: Text(currentUser?.email ?? ' '),
       ),
+      body: ListView.builder(
+          itemCount: _posts?.length ?? 1,
+          itemBuilder: ((context, index) {
+            return Text(_posts?[index].body ?? 'adana ');
+          })),
     );
   }
 }

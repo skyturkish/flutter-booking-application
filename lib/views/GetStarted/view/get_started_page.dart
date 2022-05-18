@@ -43,7 +43,7 @@ class _GetStartedBuilderState extends State<GetStartedBuilder> {
     return user == null
         ? Lottie.network('https://assets7.lottiefiles.com/packages/lf20_a2chheio.json')
         : (user != 'default'
-            ? HomePage(loginModel: cacheManager.getItem('currentUser')!)
+            ? const HomePage()
             : Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(

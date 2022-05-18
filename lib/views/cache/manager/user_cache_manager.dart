@@ -8,6 +8,8 @@ abstract class ICacheManager<T> {
 
   ICacheManager(this.key);
 
+  Box<T>? get getBox => _box;
+
   Future<void> init() async {
     registerAdapters();
     if (!(_box?.isOpen ?? false)) {
