@@ -22,11 +22,16 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final String login = 'Login';
+  // Controllers
 
   final TextEditingController namesController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  //Strings
+  final String login = 'Login';
   final Uri _url = Uri.parse('https://docs.flutter.dev/tos');
+  final String photoUrl = 'assets/png/LoginPicture.png';
+  final String baseUrl = 'https://dummyjson.com/';
 
   void launchUrlFunction() async {
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
@@ -35,7 +40,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
-      create: (context) => LoginCubit(LoginService(Dio(BaseOptions(baseUrl: 'https://dummyjson.com/')))),
+      create: (context) => LoginCubit(LoginService(Dio(BaseOptions(baseUrl: baseUrl)))),
       child: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: false, //---> keyboard açıldığında hata vermemesini sağlıyor
@@ -56,7 +61,7 @@ class _LoginViewState extends State<LoginView> {
                       Text(login, style: TextStyles.avenirCharcoal),
                       const SizedBox.shrink()
                     ]),
-                    Image.asset('assets/png/LoginPicture.png'),
+                    Image.asset(photoUrl),
                     Column(
                       children: [
                         CustomTextField(
@@ -86,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
                             if (user != null) {
                             } else {
                               ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(content: Text('name or password is wrong!!!')));
+                                  .showSnackBar(const SnackBar(content: Text(TextsLogin.passwordError)));
                             }
                           },
                           text: 'Log in',
@@ -98,13 +103,13 @@ class _LoginViewState extends State<LoginView> {
                       padding: Paddings.onlyTopLarge,
                       child: Column(
                         children: [
-                          const Text("By clicking Log in, you agree to our",
+                          const Text(TextsLogin.termsOfUse,
                               style: TextStyles.avenirGreyish, textAlign: TextAlign.center),
                           Padding(
                             padding: Paddings.onlyTopMedium,
                             child: TextButton(
                               onPressed: launchUrlFunction,
-                              child: const Text("Terms of Use",
+                              child: const Text(TextsLogin.termsOfUse,
                                   style: TextStyles.avenirCamel, textAlign: TextAlign.center),
                             ),
                           ),
@@ -127,4 +132,10 @@ class Paddings {
   static const EdgeInsets onlyTopMedium = EdgeInsets.only(top: 12.0);
   static const EdgeInsets onlyTopLow = EdgeInsets.only(top: 6.0);
   static const EdgeInsets allMedium = EdgeInsets.all(12.0);
+}
+
+class TextsLogin {
+  static const String termsOfUse = "Terms of Use";
+  static const String youAgree = "By clicking Log in, you agree to our";
+  static const String passwordError = 'name or password is wrong!!!';
 }

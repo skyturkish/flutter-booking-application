@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'views/GetStarted/Icons/icons_page_view_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-
 Future<void> main() async {
   await Hive.initFlutter(); // Hive sadece int ettin daha fazlasını yapmadın
 
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light().copyWith(
+          scaffoldBackgroundColor: const Color(0xffffffff),
           appBarTheme: AppBarTheme(
               systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
                   // statusBarBrightness: Brightness.light, // For iOS (dark icons)
