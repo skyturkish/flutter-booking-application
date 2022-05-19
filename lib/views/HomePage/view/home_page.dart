@@ -45,12 +45,18 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getPosts() async {
     await cacheManagerPost.init();
-    if (cacheManagerPost.getValues()?.isNotEmpty ?? false) {
+
+    if ((cacheManagerPost.getValues()?.isNotEmpty ?? false)) {
       _posts = cacheManagerPost.getValues();
     } else {
       final Map<String, dynamic>? datas = await serviceManager.getPosts();
       if (datas is Map) {
         _posts = (datas?["posts"] as List).map((e) => PostModel.fromJson(e)).toList();
+
+        _posts = await Future.wait(_posts!.map((e) async {
+          e.setPostUserModel(await serviceManager.getPostUserbyUserId(e.userId!));
+          return e;
+        }).toList());
         cacheManagerPost.addItems(_posts!);
       }
     }

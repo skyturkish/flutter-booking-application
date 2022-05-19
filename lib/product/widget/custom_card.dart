@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_application/views/HomePage/model/post_model.dart';
 
@@ -14,6 +17,47 @@ class CardPost extends StatefulWidget {
 }
 
 class _CardPostState extends State<CardPost> {
+  late final Dio _dio;
+  String? path;
+
+  final String defaultPicture =
+      'https://media.istockphoto.com/photos/european-short-haired-cat-picture-id1072769156?k=20&m=1072769156&s=612x612&w=0&h=k6eFXtE7bpEmR2ns5p3qe_KYh098CVLMz4iKm5OuO6Y=';
+  @override
+  void initState() {
+    _dio = Dio();
+    getPicturePath();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> getPicturePath() async {
+    bool isFailed = false;
+    Response? response;
+    try {
+      response = await _dio
+          .get(widget.post?.postUserModel?.image ?? '  https://robohash.org/utnonnobis.png?size=50x50&set=set1');
+    } catch (e) {
+      isFailed = true;
+    }
+
+    if (!isFailed) {
+      if (response!.statusCode == HttpStatus.ok) {
+        path = widget.post!.postUserModel!.image!;
+      }
+    } else {
+      path = defaultPicture;
+    }
+    if (mounted) {
+      setState(() {
+        // Your state change code goes here
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,9 +70,7 @@ class _CardPostState extends State<CardPost> {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(
-                          //    foregroundImage: NetworkImage(widget.user.image!)
-                          ),
+                      CircleAvatar(backgroundImage: NetworkImage(path ?? defaultPicture)),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
