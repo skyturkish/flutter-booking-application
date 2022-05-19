@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
@@ -19,6 +21,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+  late final Dio _dio;
+  String? path;
+
+  final String defaultPicture =
+      'https://media.istockphoto.com/photos/european-short-haired-cat-picture-id1072769156?k=20&m=1072769156&s=612x612&w=0&h=k6eFXtE7bpEmR2ns5p3qe_KYh098CVLMz4iKm5OuO6Y=';
+
+  //////////////////////////////////////////////////////////////////////////////////////////////
   //Strings
   final String baseUrl = 'https://dummyjson.com';
   //CacheManager
@@ -38,6 +48,8 @@ class _HomePageState extends State<HomePage> {
     cacheManagerPost = PostCacheManager('Posts');
     serviceManager = PostService(Dio(BaseOptions(baseUrl: baseUrl)), ' bura neden var olum ben neden bunu ekledim');
     UserService(Dio(BaseOptions(baseUrl: baseUrl)));
+    _dio = Dio();
+
     getUser();
     getPosts();
     super.initState();
@@ -54,6 +66,23 @@ class _HomePageState extends State<HomePage> {
         _posts = (datas?["posts"] as List).map((e) => PostModel.fromJson(e)).toList();
 
         _posts = await Future.wait(_posts!.map((e) async {
+          bool isFailed = false;
+          Response? response;
+          try {
+            response =
+                await _dio.get(e.postUserModel?.image ?? '  https://robohash.org/utnonnobis.png?size=50x50&set=set1');
+          } catch (_) {
+            isFailed = true;
+          }
+
+          if (!isFailed) {
+            if (response!.statusCode == HttpStatus.ok) {
+              path = e.postUserModel!.image!;
+            }
+          } else {
+            path = defaultPicture;
+          }
+          e.postUserModel!.setImage(path!);
           e.setPostUserModel(await serviceManager.getPostUserbyUserId(e.userId!));
           return e;
         }).toList());

@@ -16,6 +16,10 @@ class PostUserModel {
   @HiveField(3)
   String? image;
 
+  void setImage(String path) {
+    image = path;
+  }
+
   PostUserModel({this.id, this.firstName, this.lastName, this.image});
 
   PostUserModel.fromJson(Map<String, dynamic> json) {
