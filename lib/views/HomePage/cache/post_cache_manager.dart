@@ -1,5 +1,4 @@
 import 'package:flutter_booking_application/views/HomePage/model/post_model.dart';
-import 'package:flutter_booking_application/views/HomePage/model/post_user_model.dart';
 import 'package:flutter_booking_application/views/cache/constant/hive_constants.dart';
 import 'package:flutter_booking_application/views/cache/manager/user_cache_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -36,9 +35,6 @@ class PostCacheManager extends ICacheManager<PostModel> {
   void registerAdapters() {
     if (!Hive.isAdapterRegistered(HiveConstants.postModelTypeId)) {
       Hive.registerAdapter(PostModelAdapter());
-    }
-    if (!Hive.isAdapterRegistered(HiveConstants.postUserModelTypeId)) {
-      Hive.registerAdapter(PostUserModelAdapter());
     }
   }
 

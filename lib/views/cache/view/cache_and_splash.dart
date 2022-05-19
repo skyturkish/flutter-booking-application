@@ -34,7 +34,7 @@ class _CacheAndSplashState extends State<CacheAndSplash> {
   @override
   Widget build(BuildContext context) {
     return isComplated
-        ? const HomePage()
+        ? HomePage()
         : Scaffold(
             appBar: AppBar(),
             body: Lottie.network('https://assets5.lottiefiles.com/packages/lf20_x62chJ.json'),
