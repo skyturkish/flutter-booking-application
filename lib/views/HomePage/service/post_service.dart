@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_booking_application/views/HomePage/model/post_model.dart';
-import 'package:flutter_booking_application/views/HomePage/model/post_user_model.dart';
 
 abstract class IPostService {
   final String key;
@@ -21,8 +20,6 @@ abstract class IPostService {
   Future<Map<String, dynamic>?> getPostsbuUserId(int index);
 
   Future<Map<String, dynamic>?> getPostssComments(int index);
-
-  Future<PostUserModel?> getPostUserbyUserId(int index);
 }
 
 class PostService extends IPostService {
@@ -49,21 +46,6 @@ class PostService extends IPostService {
       if (response.statusCode == HttpStatus.ok) {
         final data = response.data;
         return data;
-      }
-    } on DioError catch (error) {
-      _ShowDebug.ShowDieError(error, this);
-    }
-    return null;
-  }
-
-//  https://dummyjson.com
-  @override
-  Future<PostUserModel?> getPostUserbyUserId(int index) async {
-    try {
-      Response response = await networkManager.get('/users/$index?limit=1&select=id,firstName,lastName,image');
-      if (response.statusCode == HttpStatus.ok) {
-        final data = response.data;
-        return PostUserModel.fromJson(data);
       }
     } on DioError catch (error) {
       _ShowDebug.ShowDieError(error, this);

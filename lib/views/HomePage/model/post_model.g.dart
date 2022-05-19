@@ -8,7 +8,7 @@ part of 'post_model.dart';
 
 class PostModelAdapter extends TypeAdapter<PostModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 8;
 
   @override
   PostModel read(BinaryReader reader) {
@@ -23,14 +23,13 @@ class PostModelAdapter extends TypeAdapter<PostModel> {
       userId: fields[3] as int?,
       tags: (fields[4] as List?)?.cast<String>(),
       reactions: fields[5] as int?,
-      postUserModel: fields[6] as PostUserModel?,
     );
   }
 
   @override
   void write(BinaryWriter writer, PostModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -42,9 +41,7 @@ class PostModelAdapter extends TypeAdapter<PostModel> {
       ..writeByte(4)
       ..write(obj.tags)
       ..writeByte(5)
-      ..write(obj.reactions)
-      ..writeByte(6)
-      ..write(obj.postUserModel);
+      ..write(obj.reactions);
   }
 
   @override

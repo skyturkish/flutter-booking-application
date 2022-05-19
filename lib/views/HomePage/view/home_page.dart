@@ -53,10 +53,6 @@ class _HomePageState extends State<HomePage> {
       if (datas is Map) {
         _posts = (datas?["posts"] as List).map((e) => PostModel.fromJson(e)).toList();
 
-        _posts = await Future.wait(_posts!.map((e) async {
-          e.setPostUserModel(await serviceManager.getPostUserbyUserId(e.userId!));
-          return e;
-        }).toList());
         cacheManagerPost.addItems(_posts!);
       }
     }
