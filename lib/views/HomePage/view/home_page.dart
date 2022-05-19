@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
+import 'package:flutter_booking_application/product/widget/custom_card.dart';
 import 'package:flutter_booking_application/views/HomePage/cache/post_cache_manager.dart';
 import 'package:flutter_booking_application/views/HomePage/model/post_model.dart';
 import 'package:flutter_booking_application/views/HomePage/service/post_service.dart';
+import 'package:flutter_booking_application/views/HomePage/service/user_service.dart';
 import 'package:flutter_booking_application/views/Login/view/login_view.dart';
+import 'package:flutter_booking_application/views/Settings/view/settings_view.dart';
 import 'package:flutter_booking_application/views/cache/manager/user_cache_manager.dart';
 import 'package:flutter_booking_application/views/cache/model/login_model.dart';
 
@@ -23,15 +26,18 @@ class _HomePageState extends State<HomePage> {
   late final ICacheManager<PostModel> cacheManagerPost;
   LoginModel? currentUser;
 // Serv'ce manager
-  late final PostService serviceManager;
+  late final IPostService serviceManager;
+  // late final IUserService userService;
 //Posts
   List<PostModel>? _posts;
+  LoginModel? postUser;
 
   @override
   void initState() {
     cacheManagerLogin = UserCacheManager('User');
     cacheManagerPost = PostCacheManager('Posts');
     serviceManager = PostService(Dio(BaseOptions(baseUrl: baseUrl)), ' bura neden var olum ben neden bunu ekledim');
+    UserService(Dio(BaseOptions(baseUrl: baseUrl)));
     getUser();
     getPosts();
     super.initState();
@@ -39,16 +45,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getPosts() async {
     await cacheManagerPost.init();
-    print('bursa');
     if (cacheManagerPost.getValues()?.isNotEmpty ?? false) {
-      print(cacheManagerPost.getValues()![0].body);
       _posts = cacheManagerPost.getValues();
     } else {
-      print('selamlar1');
-
       final Map<String, dynamic>? datas = await serviceManager.getPosts();
       if (datas is Map) {
-        print('adanaaaaa');
         _posts = (datas?["posts"] as List).map((e) => PostModel.fromJson(e)).toList();
         cacheManagerPost.addItems(_posts!);
       }
@@ -67,28 +68,59 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  // Future<LoginModel?> getUserByPostUserId(int userId) async {
+  //   return await userService.getUserByUserId(userId);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        setState(() {});
-      }),
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () async {
-                await clearAll();
-                navigateToUntilRemove(context, const LoginView());
-              },
-              icon: const Icon(Icons.arrow_back))
-        ],
-        title: Text(currentUser?.email ?? ' '),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 12.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.ac_unit_rounded)),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.ac_unit_rounded)),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.ac_unit_rounded)),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.ac_unit_rounded)),
+                  IconButton(
+                      onPressed: () {
+                        navigateToWidget(context, const SettingsView());
+                      },
+                      icon: const Icon(Icons.settings)),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () async {
+                        await clearAll();
+                        navigateToUntilRemove(context, const LoginView());
+                      },
+                      icon: const Icon(Icons.arrow_back))
+                ],
+              ),
+            ),
+            Expanded(
+                flex: 4,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: _posts == null
+                          ? const CircularProgressIndicator()
+                          : ListView.builder(
+                              itemCount: _posts?.length ?? 1,
+                              itemBuilder: ((context, index) {
+                                //    getUserByPostUserId(_posts![index].id!);
+                                return CardPost(post: _posts![index]);
+                              })),
+                    )
+                  ],
+                ))
+          ],
+        ),
       ),
-      body: ListView.builder(
-          itemCount: _posts?.length ?? 1,
-          itemBuilder: ((context, index) {
-            return Text(_posts?[index].body ?? 'adana ');
-          })),
     );
   }
 }

@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_booking_application/product/Utilities/Colors/colors.dart';
-import 'package:flutter_booking_application/product/Utilities/Textstyles/textstyles.dart';
+
+import 'package:flutter_booking_application/product/constant/Colors/colors.dart';
+import 'package:flutter_booking_application/product/constant/Textstyles/textstyles.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
 import 'package:flutter_booking_application/product/widget/elevated_button.dart';
 import 'package:flutter_booking_application/product/widget/text_field.dart';
