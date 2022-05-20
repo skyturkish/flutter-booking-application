@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_booking_application/product/global/theme_notifier.dart';
 import 'package:flutter_booking_application/views/GetStarted/model/get_started_model.dart';
 import 'package:flutter_booking_application/views/GetStarted/view/page_view.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,12 @@ Future<void> main() async {
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => IconsPageViewModel())],
+      providers: [
+        ChangeNotifierProvider<ThemeNotifier>(create: (context) => ThemeNotifier()),
+        ChangeNotifierProvider(
+          create: (_) => IconsPageViewModel(),
+        )
+      ],
       child: const MyApp(),
     ),
   );
@@ -24,13 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light().copyWith(
-          scaffoldBackgroundColor: const Color(0xffffffff),
-          appBarTheme: AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
-                  // statusBarBrightness: Brightness.light, // For iOS (dark icons)
-                  // systemNavigationBarIconBrightness: Brightness.dark,
-                  ))),
+      debugShowCheckedModeBanner: false,
+
+      theme: context.watch<ThemeNotifier>().currentTheme,
       title: 'Apart App',
 
       // home: const LoginView(),

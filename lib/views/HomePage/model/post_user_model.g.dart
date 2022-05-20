@@ -1,53 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_model.dart';
+part of 'post_user_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class LoginModelAdapter extends TypeAdapter<LoginModel> {
+class PostUserModelAdapter extends TypeAdapter<PostUserModel> {
   @override
-  final int typeId = 1;
+  final int typeId = 3;
 
   @override
-  LoginModel read(BinaryReader reader) {
+  PostUserModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return LoginModel(
+    return PostUserModel(
       id: fields[0] as int?,
-      username: fields[1] as String?,
-      email: fields[2] as String?,
-      firstName: fields[3] as String?,
-      lastName: fields[4] as String?,
-      gender: fields[5] as String?,
-      image: fields[6] as String?,
-      token: fields[7] as String?,
+      firstName: fields[1] as String?,
+      lastName: fields[2] as String?,
+      image: fields[3] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, LoginModel obj) {
+  void write(BinaryWriter writer, PostUserModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.username)
-      ..writeByte(2)
-      ..write(obj.email)
-      ..writeByte(3)
       ..write(obj.firstName)
-      ..writeByte(4)
+      ..writeByte(2)
       ..write(obj.lastName)
-      ..writeByte(5)
-      ..write(obj.gender)
-      ..writeByte(6)
-      ..write(obj.image)
-      ..writeByte(7)
-      ..write(obj.token);
+      ..writeByte(3)
+      ..write(obj.image);
   }
 
   @override
@@ -56,7 +44,7 @@ class LoginModelAdapter extends TypeAdapter<LoginModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is LoginModelAdapter &&
+      other is PostUserModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
