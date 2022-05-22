@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_booking_application/product/constant/Colors/colors.dart';
 
 import 'package:flutter_booking_application/product/constant/Textstyles/textstyles.dart';
+import 'package:flutter_booking_application/product/constant/cacheTexts/cache_texts.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
 import 'package:flutter_booking_application/product/widget/elevated_button.dart';
 import 'package:flutter_booking_application/views/GetStarted/Icons/icons_page.dart';
@@ -26,14 +27,14 @@ class _GetStartedBuilderState extends State<GetStartedBuilder> {
   late final ICacheManager<LoginModel> cacheManager;
   @override
   void initState() {
-    cacheManager = UserCacheManager('User');
+    cacheManager = UserCacheManager(CacheTexts.cacheUserName);
     getUserIfExist();
     super.initState();
   }
 
   Future<void> getUserIfExist() async {
     await cacheManager.init();
-    user = cacheManager.getItem('currentUser')?.firstName ?? 'default';
+    user = cacheManager.getItem(CacheTexts.cacheUserNameCurrent)?.firstName ?? 'default';
     setState(() {});
   }
 

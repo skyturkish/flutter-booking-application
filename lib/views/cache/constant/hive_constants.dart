@@ -1,6 +1,6 @@
 class HiveConstants {
-  static const loginModelTypeId = 1;
-  static const postModelTypeId = 2;
-  static const postUserModelTypeId = 3;
+  static const loginModelTypeId = 7;
+  static const postModelTypeId = 8;
+  static const postUserModelTypeId = 9;
   //static const userTypeCompanyId = 2;
 }

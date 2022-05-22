@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_booking_application/product/constant/cacheTexts/cache_texts.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
 import 'package:flutter_booking_application/product/widget/custom_card.dart';
 import 'package:flutter_booking_application/views/HomePage/cache/post_cache_manager.dart';
@@ -44,8 +45,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    cacheManagerLogin = UserCacheManager('User');
-    cacheManagerPost = PostCacheManager('Posts');
+    cacheManagerLogin = UserCacheManager(CacheTexts.cacheUserName);
+    cacheManagerPost = PostCacheManager(CacheTexts.cachePosts);
     serviceManager = PostService(Dio(BaseOptions(baseUrl: baseUrl)), ' bura neden var olum ben neden bunu ekledim');
     UserService(Dio(BaseOptions(baseUrl: baseUrl)));
     _dio = Dio();
@@ -99,7 +100,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getUser() async {
     await cacheManagerLogin.init();
-    currentUser = cacheManagerLogin.getItem('currentUser')!;
+    currentUser = cacheManagerLogin.getItem(CacheTexts.cacheUserNameCurrent)!;
     setState(() {});
   }
 
