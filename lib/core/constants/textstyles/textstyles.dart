@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_booking_application/product/constant/Colors/colors.dart';
+import 'package:flutter_booking_application/core/constants/Colors/colors.dart';
 
 class TextStyles {
   static const avenirBlackBig = TextStyle(

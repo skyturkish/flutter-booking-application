@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_booking_application/product/constant/Textstyles/textstyles.dart';
+import 'package:flutter_booking_application/core/constants/textstyles/textstyles.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(

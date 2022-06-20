@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_booking_application/product/constant/Colors/colors.dart';
-
-import 'package:flutter_booking_application/product/constant/Textstyles/textstyles.dart';
+import 'package:flutter_booking_application/core/constants/Colors/colors.dart';
+import 'package:flutter_booking_application/core/constants/textstyles/textstyles.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
-import 'package:flutter_booking_application/product/widget/elevated_button.dart';
+import 'package:flutter_booking_application/product/widget/button/elevated_button.dart';
 import 'package:flutter_booking_application/views/GetStarted/Icons/icons_page.dart';
 import 'package:flutter_booking_application/views/GetStarted/model/get_started_model.dart';
 import 'package:flutter_booking_application/views/HomePage/view/home_page.dart';
 import 'package:flutter_booking_application/views/Login/view/login_view.dart';
+import 'package:flutter_booking_application/views/cache/constant/hive_constants.dart';
 import 'package:flutter_booking_application/views/cache/manager/user_cache_manager.dart';
 import 'package:flutter_booking_application/views/cache/model/login_model.dart';
 import 'package:lottie/lottie.dart';
@@ -26,14 +26,14 @@ class _GetStartedBuilderState extends State<GetStartedBuilder> {
   late final ICacheManager<LoginModel> cacheManager;
   @override
   void initState() {
-    cacheManager = UserCacheManager('User');
+    cacheManager = UserCacheManager(HiveConstants.cacheNameUser);
     getUserIfExist();
     super.initState();
   }
 
   Future<void> getUserIfExist() async {
     await cacheManager.init();
-    user = cacheManager.getItem('currentUser')?.firstName ?? 'default';
+    user = cacheManager.getItem(HiveConstants.cacheCurrentUser)?.firstName ?? HiveConstants.defaultString;
     setState(() {});
   }
 
@@ -43,7 +43,7 @@ class _GetStartedBuilderState extends State<GetStartedBuilder> {
 
     return user == null
         ? Lottie.network('https://assets7.lottiefiles.com/packages/lf20_a2chheio.json')
-        : (user != 'default'
+        : (user != HiveConstants.defaultString
             ? const HomePage()
             : Container(
                 decoration: BoxDecoration(
@@ -79,7 +79,10 @@ class _GetStartedBuilderState extends State<GetStartedBuilder> {
                             padding: Paddings.onlyTopSoBig + Paddings.horizontalLow,
                             child: CustomElevatedButton(
                               onPressed: () {
-                                navigateToUntilRemove(context, const LoginView());
+                                navigateToUntilRemove(
+                                  context,
+                                  const LoginView(),
+                                );
                               },
                               text: 'Get Started',
                               primary: ColorsUtilities.darkGreenBlue,

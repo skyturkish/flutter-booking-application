@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_application/product/navigator/navigator_help.dart';
-import 'package:flutter_booking_application/product/widget/custom_card.dart';
+import 'package:flutter_booking_application/product/widget/card/custom_card.dart';
 import 'package:flutter_booking_application/views/HomePage/cache/post_cache_manager.dart';
 import 'package:flutter_booking_application/views/HomePage/model/post_model.dart';
 import 'package:flutter_booking_application/views/HomePage/service/post_service.dart';
 import 'package:flutter_booking_application/views/HomePage/service/user_service.dart';
 import 'package:flutter_booking_application/views/Login/view/login_view.dart';
 import 'package:flutter_booking_application/views/Settings/view/settings_view.dart';
+import 'package:flutter_booking_application/views/cache/constant/hive_constants.dart';
 import 'package:flutter_booking_application/views/cache/manager/user_cache_manager.dart';
 import 'package:flutter_booking_application/views/cache/model/login_model.dart';
 
@@ -34,8 +35,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    cacheManagerLogin = UserCacheManager('User');
-    cacheManagerPost = PostCacheManager('Posts');
+    cacheManagerLogin = UserCacheManager(HiveConstants.cacheNameUser);
+    cacheManagerPost = PostCacheManager(HiveConstants.cacheNamePost);
     serviceManager = PostService(Dio(BaseOptions(baseUrl: baseUrl)), ' bura neden var olum ben neden bunu ekledim');
     UserService(Dio(BaseOptions(baseUrl: baseUrl)));
     getUser();
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getUser() async {
     await cacheManagerLogin.init();
-    currentUser = cacheManagerLogin.getItem('currentUser')!;
+    currentUser = cacheManagerLogin.getItem(HiveConstants.cacheCurrentUser)!; // force atmışsın
     setState(() {});
   }
 
@@ -114,7 +115,6 @@ class _HomePageState extends State<HomePage> {
                           : ListView.builder(
                               itemCount: _posts?.length ?? 1,
                               itemBuilder: ((context, index) {
-                                //    getUserByPostUserId(_posts![index].id!);
                                 return CardPost(post: _posts![index]);
                               })),
                     )

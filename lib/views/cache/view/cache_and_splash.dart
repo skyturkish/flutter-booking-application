@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_application/views/HomePage/view/home_page.dart';
+import 'package:flutter_booking_application/views/cache/constant/hive_constants.dart';
 import 'package:flutter_booking_application/views/cache/manager/user_cache_manager.dart';
 import 'package:flutter_booking_application/views/cache/model/login_model.dart';
 import 'package:lottie/lottie.dart';
@@ -13,18 +14,17 @@ class CacheAndSplash extends StatefulWidget {
 
 class _CacheAndSplashState extends State<CacheAndSplash> {
   bool isComplated = false;
-
   late final ICacheManager<LoginModel> cacheManager;
   @override
   void initState() {
-    cacheManager = UserCacheManager('User');
+    cacheManager = UserCacheManager(HiveConstants.cacheNameUser);
     cacheUser();
     super.initState();
   }
 
   Future<void> cacheUser() async {
     await cacheManager.init();
-    await cacheManager.putItem('currentUser', widget.loginModel);
+    await cacheManager.putItem(HiveConstants.cacheCurrentUser, widget.loginModel);
     isComplated = true;
     // await Future.delayed(const Duration(seconds: 4)); this provide to see loading screen
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_booking_application/product/constant/Durations/duration_items.dart';
-import 'package:flutter_booking_application/product/constant/lottie/lottie_items.dart';
+import 'package:flutter_booking_application/core/constants/Durations/duration_items.dart';
+import 'package:flutter_booking_application/core/extension/lottie/lottie_items.dart';
+
 import 'package:flutter_booking_application/product/global/theme_notifier.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
